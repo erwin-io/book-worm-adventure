@@ -44,7 +44,11 @@ app.get('/checkword2/:path', function (req, res) {
         return res.send({
             keyword: `*${req.params.path.toLowerCase()}*`,
             found: data.toString().split("\r\n").some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`),
-            data: data.toString().split("\r\n")
+            data: data.toString().split("\r\n"),
+            foundIndexSplitRN: data.toString().indexOf("\r\n"),
+            foundSplitRN: data.toString().includes("\r\n"),
+            foundIndexSplitN: data.toString().indexOf("\n"),
+            foundSplitN: data.toString().includes("\n")
         });
     });
 });
