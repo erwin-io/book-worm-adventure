@@ -4,7 +4,13 @@
   "description": "book-worm-adventure",
   "main": "src/server.ts",
   "scripts": {
-    "start": "nodemon dist/server.ts"
+    "postbuild": "npm run copy-files",
+    "copy-files": "copyfiles -u 1 \"./src/**/*\" \"dist\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.ts",
+    "build": "rimraf dist && npx tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
   },
   "repository": {
     "type": "git",
