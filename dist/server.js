@@ -36,15 +36,15 @@ app.get('/page/:path', function (req, res) {
 app.get('/enemy', function (req, res) {
     res.sendFile(path.join(__dirname + '/templates/battle_screen.html'));
 });
-app.get('/checkpath/:path', function (req, res) {
+app.get('/checkword2/:path', function (req, res) {
     var fs = require('fs');
     fs.readFile(path.join(__dirname + "/wordlists/wordlist.txt"), 'utf8', function (err, data) {
         if (err)
             throw err;
         return res.send({
-            data,
-            path: path.join(__dirname + "/wordlists/wordlist.txt"),
-            __dirname: path.join(__dirname),
+            keyword: `*${req.params.path.toLowerCase()}*`,
+            found: data.toString().split("\r\n").some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`),
+            data: data.toString().split("\r\n")
         });
     });
 });
@@ -53,7 +53,7 @@ app.get('/checkword/:path', function (req, res) {
     fs.readFile(path.join(__dirname + "/wordlists/wordlist.txt"), 'utf8', function (err, data) {
         if (err)
             throw err;
-        if (data.toString().split("\r\n").some((x) => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
+        if (data.toString().split("\r\n").some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
             return res.send("t");
         }
         else {
