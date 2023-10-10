@@ -17,6 +17,17 @@ app.get('/checkword/:path', function (req, res) {
   var fs = require('fs');
   fs.readFile(path.join(__dirname+"/wordlists/wordlist.txt"), 'utf8', function(err: any, data: { toString: () => string; }) {
     if (err) throw err;
+    return res.send({
+      data,
+      path: path.join(__dirname+"/wordlists/wordlist.txt"),
+      __dirname: path.join(__dirname),
+    })
+  });
+});
+app.get('/checkword/:path', function (req, res) {
+  var fs = require('fs');
+  fs.readFile(path.join(__dirname+"/wordlists/wordlist.txt"), 'utf8', function(err: any, data: { toString: () => string; }) {
+    if (err) throw err;
     if(data.toString().split("\r\n").some((x: string)=>x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
       return res.send("t");
     } else {
