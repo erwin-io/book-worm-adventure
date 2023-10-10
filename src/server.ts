@@ -21,7 +21,7 @@ app.get('/checkword2/:path', function (req, res) {
     return res.send({
       keyword: `*${req.params.path.toLowerCase()}*`,
       found: data.toString().split("\r\n").some(x=>x.toLowerCase() === `*${req.params.path.toLowerCase()}*`),
-      data: data.toString().split("\r\n")
+      data: data.toString().split("\r\n") as string[]
     });
   });
 });
