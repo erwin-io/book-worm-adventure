@@ -13,7 +13,7 @@ app.get('/page/:path', function (req, res) {
 app.get('/enemy', function (req, res) {
   res.sendFile(path.join(__dirname+'/templates/battle_screen.html'));
 });
-app.get('/checkword/:path', function (req, res) {
+app.get('/checkpath/:path', function (req, res) {
   var fs = require('fs');
   fs.readFile(path.join(__dirname+"/wordlists/wordlist.txt"), 'utf8', function(err: any, data: { toString: () => string; }) {
     if (err) throw err;
