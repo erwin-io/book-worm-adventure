@@ -63,6 +63,7 @@ app.get('/specialword/:path/:word', function (req, res) {
     });
 });
 app.use("/", express.static(path.join(__dirname, "/")));
+app.use(express.static(__dirname + "/public/"));
 const PORT = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 8080;
 var server = app.listen(8080, () => console.log(`The server is running on port ${PORT} use this link http://localhost:${PORT}/`));
 //# sourceMappingURL=server.js.map

@@ -38,6 +38,7 @@ app.get('/specialword/:path/:word', function (req, res) {
 });
 
 app.use("/", express.static(path.join(__dirname, "/")));
+app.use(express.static(__dirname + "/public/"))
 
 const PORT: any = process.env.PORT ?? 8080;
 var server = app.listen(8080, () =>
