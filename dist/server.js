@@ -44,7 +44,8 @@ app.get('/checkword2/:path', function (req, res) {
         return res.send({
             keyword: `*${req.params.path.toLowerCase()}*`,
             found: data.toString().split("\r\n").some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`),
-            data: data.toString().split("\r\n"),
+            dataRN: data.toString().split("\r\n"),
+            dataN: data.toString().split("\n"),
             foundIndexSplitRN: data.toString().indexOf("\r\n"),
             foundSplitRN: data.toString().includes("\r\n"),
             foundIndexSplitN: data.toString().indexOf("\n"),
@@ -57,7 +58,8 @@ app.get('/checkword/:path', function (req, res) {
     fs.readFile(path.join(__dirname + "/wordlists/wordlist.txt"), 'utf8', function (err, data) {
         if (err)
             throw err;
-        if (data.toString().split("\r\n").some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
+        const array = data.toString().indexOf("\r\n") >= 0 ? data.toString().split("\r\n") : data.toString().split("\n");
+        if (array.some(x => x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
             return res.send("t");
         }
         else {

@@ -21,7 +21,8 @@ app.get('/checkword2/:path', function (req, res) {
     return res.send({
       keyword: `*${req.params.path.toLowerCase()}*`,
       found: data.toString().split("\r\n").some(x=>x.toLowerCase() === `*${req.params.path.toLowerCase()}*`),
-      data: data.toString().split("\r\n") as string[],
+      dataRN: data.toString().split("\r\n") as string[],
+      dataN: data.toString().split("\n") as string[],
       foundIndexSplitRN: data.toString().indexOf("\r\n"),
       foundSplitRN: data.toString().includes("\r\n"),
       foundIndexSplitN: data.toString().indexOf("\n"),
@@ -33,7 +34,8 @@ app.get('/checkword/:path', function (req, res) {
   var fs = require('fs');
   fs.readFile(path.join(__dirname+"/wordlists/wordlist.txt"), 'utf8', function(err: any, data: { toString: () => string; }) {
     if (err) throw err;
-    if(data.toString().split("\r\n").some(x=>x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
+    const array = data.toString().indexOf("\r\n") >= 0 ? data.toString().split("\r\n") : data.toString().split("\n");
+    if(array.some(x=>x.toLowerCase() === `*${req.params.path.toLowerCase()}*`)) {
       return res.send("t");
     } else {
       return res.send("f");
